@@ -51,7 +51,8 @@ electron.app.on('browser-window-created', (_, window) => {
 
 	if (app.os === 'win10') {
 		const bindings = require('./vibrancy.js');
-		bindings.setVibrancy(window.getNativeWindowHandle().readInt32LE(0), 1, backgroundRGB.r, backgroundRGB.g, backgroundRGB.b, 0);
+		// bindings.setVibrancy(window.getNativeWindowHandle().readInt32LE(0), 1, backgroundRGB.r, backgroundRGB.g, backgroundRGB.b, 0);
+		bindings.setWindowType(window.getNativeWindowHandle().readInt32LE(0), 4)
 		const win10refresh = require('./win10refresh.js');
 		win10refresh(window, 60);
 

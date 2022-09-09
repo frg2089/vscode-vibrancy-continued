@@ -33,6 +33,25 @@ typedef BOOL(WINAPI
 
 const HINSTANCE hModule = LoadLibrary(TEXT("user32.dll"));
 
+const int DWMWA_MICA_EFFECT = 1029;
+// const int DWMWA_SYSTEMBACKDROP_TYPE = 38;
+
+enum WindowType : int {
+    WT_ACRYLIC = 3,
+    WT_MICA = 2,
+    WT_TABBED = 4
+};
+
+HRESULT SetWindowType(HWND hwnd, WindowType type) {
+    return DwmSetWindowAttribute(hwnd, DWMWA_SYSTEMBACKDROP_TYPE, &type, sizeof(WindowType));
+}
+
+void setWindowType(const Napi::CallbackInfo &info) {
+    HWND hwnd = (HWND)info[0].As<Napi::Number>().Int64Value();
+    WindowType type = (WindowType)info[1].As<Napi::Number>().Int32Value();
+    SetWindowType(hwnd, type);
+}
+
 void setVibrancy(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     try {
@@ -117,6 +136,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
                 Napi::Function::New(env, setVibrancy));
     exports.Set(Napi::String::New(env, "disableVibrancy"),
                 Napi::Function::New(env, disableVibrancy));
+    exports.Set(Napi::String::New(env, "setWindowType"),
+                Napi::Function::New(env, setWindowType));
     return exports;
 }
 

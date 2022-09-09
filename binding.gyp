@@ -6,7 +6,15 @@
         ["OS=='win'", {
           "sources": [
             "native/vibrancy.cc"
-          ]
+          ],
+          "libraries": [
+            "dwmapi.lib"
+          ],
+          "msvs_settings": {
+            "VCLinkerTool": {
+              "GenerateDebugInformation": "false"
+            }
+          }
         }]
       ],
       "cflags": [
