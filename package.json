@@ -118,7 +118,7 @@
     "mz": "^2.7.0"
   },
   "devDependencies": {
-    "node-gyp": "^9.1.0",
+    "node-gyp": "^12.2.0",
     "node-addon-api": "^5.0.0"
   }
 }
